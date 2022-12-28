@@ -1,0 +1,5 @@
+answer = nil;
+while answer != "STOP" 
+    answer = gets.chomp
+end
+
