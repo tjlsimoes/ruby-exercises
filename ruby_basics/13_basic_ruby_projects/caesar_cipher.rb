@@ -27,3 +27,5 @@ string_array.reduce("") do |new_string, element|
 end
 
 end
+
+caesar_cipher("What a string!", 5)
