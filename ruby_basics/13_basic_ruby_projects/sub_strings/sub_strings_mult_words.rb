@@ -1,27 +1,59 @@
-string = "Howdy partner, sit down! How's it going?"
-dictionary = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
+# string = "Howdy partner, sit down! How's it going?"
+# dictionary = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
 
-string_words = string.downcase.split
+# string_words = string.downcase.split
 
-the_substrings = []
+# the_substrings = []
 
-j = 0
+# j = 0
 
-while j < dictionary.length 
+# while j < dictionary.length 
 
-    i = 0
-    while i < string_words.length
-        if (string_words[i].include?(dictionary[j].downcase) == true)
-            the_substrings.push(dictionary[j])
+#     i = 0
+#     while i < string_words.length
+#         if (string_words[i].include?(dictionary[j].downcase) == true)
+#             the_substrings.push(dictionary[j])
+#         end
+#         i += 1
+#     end
+
+#     j += 1
+# end
+
+# the_substrings.reduce(Hash.new(0)) do |hash_substrings, element|
+#     hash_substrings[element] += 1
+#     hash_substrings
+# end
+
+
+
+
+def substrings(string, dictionary)
+    
+    string_words = string.downcase.split
+    the_substrings = []
+
+    j = 0
+    while j < dictionary.length 
+
+        i = 0
+        while i < string_words.length
+
+            if (string_words[i].include?(dictionary[j].downcase) == true)
+                the_substrings.push(dictionary[j])
+            end
+
+            i += 1
         end
-        i += 1
+
+        j += 1
     end
 
-    j += 1
+    the_substrings.reduce(Hash.new(0)) do |hash_substrings, element|
+        hash_substrings[element] += 1
+        hash_substrings
+    end
+
 end
 
-the_substrings.reduce(Hash.new(0)) do |hash_substrings, element|
-    hash_substrings[element] += 1
-    hash_substrings
-  end
-
+substrings("Howdy partner, sit down! How's it going?", ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"])
