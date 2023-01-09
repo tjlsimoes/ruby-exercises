@@ -1,6 +1,4 @@
-array = [4,3,78,2,0,2]
-
-  
+def bubble_sort(array)
     j = 0
     while j < array.length do
 
@@ -20,4 +18,8 @@ array = [4,3,78,2,0,2]
         j += 1
     end
 
-array
+    array
+end
+
+bubble_sort([4,3,78,2,0,2])
+   
