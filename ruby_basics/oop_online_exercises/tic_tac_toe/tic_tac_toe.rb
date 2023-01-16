@@ -46,3 +46,66 @@ end
 p board
 x_symbol_win = WinningBoards.new("x")
 o_symbol_win = WinningBoards.new("o")
+
+i = 2
+while i < 15
+
+    available_numbers = 
+    ["one", "two", "three", "four", 
+    "five", "six", "seven", "eight", "nine"]
+
+    string_conversion = 
+        {"one" => 1, "two" => 2, "three" => 3, 
+        "four" => 4, "five" => 5, "six" => 6,
+        "seven" => 7, "eight" => 8, "nine" => 9}
+
+    relative_position = 
+        {"one" => 0, "two" => 2, "three" => 4, 
+        "four" => 7, "five" => 9, "six" => 11,
+        "seven" => 14, "eight" => 16, "nine" => 18}
+
+    puts board
+    puts "Choose an available number and write out the corresponding word!"
+
+    user_input = gets.chomp
+
+    if i.odd?
+
+        if string_conversion.include?(user_input)
+
+            if available_numbers.include?(user_input)
+
+                available_numbers.delete(user_input)
+
+                board[relative_position[user_input]] = "x"
+           
+            else
+                puts "Choose an available number."
+            end
+
+        else
+            puts "You better not joke around! Try again."
+        end
+
+    elsif i.even?
+
+        if string_conversion.include?(user_input)
+
+            if available_numbers.include?(user_input)
+
+                available_numbers.delete(user_input)
+
+                board[relative_position[user_input]] = "o"
+
+            else
+                puts "Choose an available number."
+            end
+
+        else
+            puts "You better not joke around! Try again."
+        end
+
+    end
+
+    i += 1
+end
