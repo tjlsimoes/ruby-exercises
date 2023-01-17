@@ -105,10 +105,10 @@ while i < 15
 
                 board[relative_position[user_input]] = "o"
 
-                win = first_win_case?(board, "x") || second_win_case?(board, "x") || 
-                        third_win_case?(board, "x") || fourth_win_case?(board, "x") || 
-                        fifth_win_case?(board, "x") || sixth_win_case?(board, "x") ||
-                        seventh_win_case?(board, "x") || eight_win_case?(board, "x")
+                win = first_win_case?(board, "o") || second_win_case?(board, "o") || 
+                        third_win_case?(board, "o") || fourth_win_case?(board, "o") || 
+                        fifth_win_case?(board, "o") || sixth_win_case?(board, "o") ||
+                        seventh_win_case?(board, "o") || eight_win_case?(board, "o")
                     
                 if win == true
                     puts "Player two has won!!"
