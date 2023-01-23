@@ -25,19 +25,24 @@ module Mastermind
         end
         
         def play
-        
+
+            puts secret_code
+
             i = 1
-            while i < 12
+            while i < 13
+
+                puts "\nYou have #{13 - i} attempts to guess the secret code."
+            
                 combination = []
                 4.times {combination << get_color_from_user }
                 
                 if combination_match?(combination)
-                    puts "Success! You've discovered the secret code!"
-                    combination.to_s
+                    puts "\nSuccess! You've discovered the secret code!"
+                    puts "The secret code was: #{secret_code.join(" ")}." 
                     return
                 else 
                     puts "Your combination doesn't match the secret code."
-                    combination.join("")
+                    puts "Your combination was: #{combination.join(" ")}."
                 end
                 
                 i += 1
