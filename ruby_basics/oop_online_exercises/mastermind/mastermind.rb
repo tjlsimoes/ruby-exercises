@@ -23,6 +23,43 @@ module Mastermind
         def combination_match?(combo)
             combo == @secret_code
         end
+
+        def any_colour_match?(combo)
+            combo.any? {|colour| @secret_code.include?(colour)}
+        end
+
+        def colour_and_pos_matches(combo)
+
+            exactly_pos_colours = []
+
+            i = 0
+            while i < 4
+                if combo[i] == @secret_code[i]
+                    exactly_pos_colours << combo[i]
+                end
+
+                i += 1
+            end
+
+            exactly_pos_colours
+        end
+
+        def colour_matches(combo)
+
+            correct_colours = []
+
+            i = 0
+            while i < 4
+                if @secret_code.include?(combo[i])
+                    correct_colours << combo[i]
+                end
+                
+                i += 1
+            end
+
+            correct_colours
+            
+        end
         
         def play
 
@@ -40,6 +77,20 @@ module Mastermind
                     puts "\nSuccess! You've discovered the secret code!"
                     puts "The secret code was: #{secret_code.join(" ")}." 
                     return
+                elsif any_colour_match?(combination)
+
+                    just_correct_colours = colour_matches(combination) - colour_and_pos_matches(combination)
+                    num_just_correct_colours = just_correct_colours.length
+
+                    num_exactly_pos_colours = colour_and_pos_matches(combination).length
+
+                    puts "\nYour combination doesn't match the secret code."
+                    puts "Your combination was: #{combination.join(" ")}."
+                    puts ("You have #{num_exactly_pos_colours} correctly located colours\nand #{num_just_correct_colours} just correct colours.")
+                    
+                    # puts "These are the just correct colours: #{just_correct_colours}."
+                    # puts "The are the correctly positioned colours: #{colour_and_pos_matches(combination)}"
+
                 else 
                     puts "Your combination doesn't match the secret code."
                     puts "Your combination was: #{combination.join(" ")}."
