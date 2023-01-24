@@ -84,6 +84,11 @@ module Mastermind
             end
 
         end
+
+        def the_s(num)
+            return "" if num < 2
+            return "s" 
+        end
         
         def play
 
@@ -113,8 +118,8 @@ module Mastermind
 
                     puts "\nThe combination doesn't match the secret code."
                     puts "The combination was: #{combination.join(" ")}."
-                    puts "\n#{num_exactly_pos_colours} correctly located colours"
-                    puts " and #{num_just_correct_colours} just correct colours."
+                    puts "\n#{num_exactly_pos_colours} correctly located colour#{the_s(num_exactly_pos_colours)}."
+                    puts " and #{num_just_correct_colours} just correct colour#{the_s(num_just_correct_colours)}."
 
                 else 
                     puts "The combination doesn't match the secret code."
