@@ -73,10 +73,6 @@ module Mastermind
             end
         end
 
-        def index_guess_player(guessing_player_class)
-            @players.index(guessing_player_class)
-        end
-
         def the_secret_code(guessing_player_class)
 
             if guessing_player_class == @players[0]
@@ -88,7 +84,6 @@ module Mastermind
             end
 
         end
-
         
         def play
 
@@ -101,12 +96,12 @@ module Mastermind
             i = 1
             while i < 13
 
-                puts "\nYou have #{13 - i} attempts to guess the secret code."
+                puts "\n#{13 - i} attempts to guess the secret code!"
             
                 combination = guessing_player.get_colour_combination 
                 
                 if combination_match?(combination)
-                    puts "\nSuccess! You've discovered the secret code!"
+                    puts "\nSuccess! The secret code has been unveiled!"
                     puts "The secret code was: #{@secret_code.join(" ")}." 
                     return
                 elsif any_colour_match?(combination)
@@ -116,17 +111,14 @@ module Mastermind
 
                     num_exactly_pos_colours = colour_and_pos_matches(combination).length
 
-                    puts "\nYour combination doesn't match the secret code."
-                    puts "Your combination was: #{combination.join(" ")}."
-                    puts "\nYou have #{num_exactly_pos_colours} correctly located colours"
+                    puts "\nThe combination doesn't match the secret code."
+                    puts "The combination was: #{combination.join(" ")}."
+                    puts "\n#{num_exactly_pos_colours} correctly located colours"
                     puts " and #{num_just_correct_colours} just correct colours."
-                    
-                    # puts "These are the just correct colours: #{just_correct_colours}."
-                    # puts "The are the correctly positioned colours: #{colour_and_pos_matches(combination)}"
 
                 else 
-                    puts "Your combination doesn't match the secret code."
-                    puts "Your combination was: #{combination.join(" ")}."
+                    puts "The combination doesn't match the secret code."
+                    puts "The combination was: #{combination.join(" ")}."
                 end
                 
                 i += 1
@@ -169,7 +161,7 @@ module Mastermind
     class ComputerPlayer < Player
 
         def get_colour_combination
-            
+
             @game.available_colors.sample(4)
 
         end
