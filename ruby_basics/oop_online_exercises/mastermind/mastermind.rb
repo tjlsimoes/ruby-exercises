@@ -2,11 +2,12 @@ module Mastermind
 
     class Game
 
-        attr_reader :secret_code, :available_colors
+        attr_reader :available_colors
+        attr_accessor :secret_code
 
         def initialize(player_1_class, player_2_class)
             @available_colors = ["black", "white", "red", "blue", "green", "orange"]
-            @secret_code = @available_colors.sample(4)
+            @secret_code = []
 
             @players = 
                 [player_1_class.new(self), 
@@ -76,25 +77,37 @@ module Mastermind
             @players.index(guessing_player_class)
         end
 
+        def the_secret_code(guessing_player_class)
+
+            if guessing_player_class == @players[0]
+                return @players[1].def_secret_code
+
+            elsif guessing_player_class == @players[1]
+                return @players[0].def_secret_code
+
+            end
+
+        end
+
         
         def play
 
-            puts secret_code
-
             guessing_player = def_guessing_player
 
+            @secret_code = the_secret_code(guessing_player)
+
+            puts @secret_code
+            
             i = 1
             while i < 13
 
                 puts "\nYou have #{13 - i} attempts to guess the secret code."
             
                 combination = guessing_player.get_colour_combination 
-
-                puts combination
                 
                 if combination_match?(combination)
                     puts "\nSuccess! You've discovered the secret code!"
-                    puts "The secret code was: #{secret_code.join(" ")}." 
+                    puts "The secret code was: #{@secret_code.join(" ")}." 
                     return
                 elsif any_colour_match?(combination)
 
@@ -147,15 +160,22 @@ module Mastermind
             combination
         end
 
+        def def_secret_code
+            puts "You choose the secret code!"
+            get_colour_combination
+        end
     end
 
     class ComputerPlayer < Player
 
         def get_colour_combination
-
-            available_colors = ["black", "white", "red", "blue", "green", "orange"]
-            available_colors.sample(4)
             
+            @game.available_colors.sample(4)
+
+        end
+
+        def def_secret_code
+            get_colour_combination
         end
 
 
