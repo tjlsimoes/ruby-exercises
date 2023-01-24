@@ -54,22 +54,41 @@ module Mastermind
             
         end
 
-        def get_colour_combination(player)
-            combination = []
-            4.times {combination << player.get_colour }
-            combination
+        def def_guessing_player
+
+            puts "Do you want to choose the secret code or guess it?"
+            puts "Write: choose for the first option; and guess for the second option."
+            option = gets.chomp.downcase
+
+            if option == "guess"
+
+                return @players[0] # For guessing player to be the human player.
+
+            elsif option == "choose"
+
+                return @players[1] # For guessing player to be the computer player.
+            else
+                puts "Write: choose for the first option; and guess for the second option."
+            end
         end
+
+        def index_guess_player(guessing_player_class)
+            @players.index(guessing_player_class)
+        end
+
         
         def play
 
             puts secret_code
+
+            guessing_player = def_guessing_player
 
             i = 1
             while i < 13
 
                 puts "\nYou have #{13 - i} attempts to guess the secret code."
             
-                combination = get_colour_combination(@players[0]) # Missing player identification!
+                combination = guessing_player.get_colour_combination 
 
                 puts combination
                 
@@ -122,9 +141,23 @@ module Mastermind
             end
         end
 
+        def get_colour_combination
+            combination = []
+            4.times {combination << get_colour }
+            combination
+        end
+
     end
 
     class ComputerPlayer < Player
+
+        def get_colour_combination
+
+            available_colors = ["black", "white", "red", "blue", "green", "orange"]
+            available_colors.sample(4)
+            
+        end
+
 
     end
 end
