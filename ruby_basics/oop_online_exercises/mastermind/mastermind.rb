@@ -4,20 +4,13 @@ module Mastermind
 
         attr_reader :secret_code, :available_colors
 
-        def initialize
+        def initialize(player_1_class, player_2_class)
             @available_colors = ["black", "white", "red", "blue", "green", "orange"]
             @secret_code = @available_colors.sample(4)
-        end
-    
-        def get_color_from_user
 
-            loop do
-                puts "Choose one of the available colours."
-                colour = gets.chomp.downcase
-                return colour if @available_colors.include?(colour)
-                    puts "The colour you have entered is not available. Choose one of the available colours."
-            end
-
+            @players = 
+                [player_1_class.new(self), 
+                player_2_class.new(self)]
         end
 
         def combination_match?(combo)
@@ -60,6 +53,12 @@ module Mastermind
             correct_colours
             
         end
+
+        def get_colour_combination(player)
+            combination = []
+            4.times {combination << player.get_colour }
+            combination
+        end
         
         def play
 
@@ -70,8 +69,9 @@ module Mastermind
 
                 puts "\nYou have #{13 - i} attempts to guess the secret code."
             
-                combination = []
-                4.times {combination << get_color_from_user }
+                combination = get_colour_combination(@players[0]) # Missing player identification!
+
+                puts combination
                 
                 if combination_match?(combination)
                     puts "\nSuccess! You've discovered the secret code!"
@@ -86,7 +86,8 @@ module Mastermind
 
                     puts "\nYour combination doesn't match the secret code."
                     puts "Your combination was: #{combination.join(" ")}."
-                    puts ("You have #{num_exactly_pos_colours} correctly located colours\nand #{num_just_correct_colours} just correct colours.")
+                    puts "\nYou have #{num_exactly_pos_colours} correctly located colours"
+                    puts " and #{num_just_correct_colours} just correct colours."
                     
                     # puts "These are the just correct colours: #{just_correct_colours}."
                     # puts "The are the correctly positioned colours: #{colour_and_pos_matches(combination)}"
@@ -104,9 +105,31 @@ module Mastermind
 
     end
 
+    class Player
+        def initialize(game)
+            @game = game
+        end
+    end
+
+    class HumanPlayer < Player
+
+        def get_colour
+            loop do
+                puts "Choose one of the available colours."
+                colour = gets.chomp.downcase
+                return colour if @game.available_colors.include?(colour)
+                    puts "The colour you have entered is not available. Choose one of the available colours."
+            end
+        end
+
+    end
+
+    class ComputerPlayer < Player
+
+    end
 end
 
 include Mastermind
 
-Game.new.play
+Game.new(HumanPlayer, ComputerPlayer).play
 
