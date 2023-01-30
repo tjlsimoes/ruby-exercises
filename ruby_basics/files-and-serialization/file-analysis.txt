@@ -1,0 +1,12 @@
+Filetype   Count   Bytes
+JPG   1   873458
+JPEG   1   204779
+MD   2   10337
+HTML   57   169674
+WAV   9   1098374
+MP4   1   45662460
+MP3   1   29131
+CSS   13   18404
+JS   6   6719
+JSON   3   884
+SVG   2   42000
