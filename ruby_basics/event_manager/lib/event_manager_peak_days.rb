@@ -1,5 +1,5 @@
 require "csv"
-require "date"
+require "time"
 
 puts "EventManager initialized"
 
@@ -28,32 +28,43 @@ contents = CSV.open(
 )
 
 
-hours = contents.inject([]) do |hours, row|
+days = contents.inject([]) do |days, row|
             name = row[:first_name]
             date_and_time = clean_dates_and_times(row[:regdate])
 
             date_and_time = Date.parse(date_and_time)
 
             day = date_and_time.wday
-            
-            hours << hour
-            hours.sort
+
+            days << day
         end
 
-count_on_hours = hours.group_by { |hour| hours.count(hour)}
 
-count_on_hours = count_on_hours.transform_values! { |value| value.uniq }
+days = days.map{ |day| Date::DAYNAMES[day] }
 
 
-count_on_hours.each_pair do |count, hours|  
+count_on_days = days.group_by { |day| days.count(day)}
 
-    if count == 1
+count_on_days = count_on_days.transform_values! { |value| value.uniq }
 
-        puts "The following hours #{hours.join("h ")}h occured #{count} time." 
+
+count_on_days.each_pair do |count, days|  
+
+    if count == 1 && days.length == 1
+
+        puts "#{days.join("h ")} occured #{count} time." 
+
+    elsif days.length == 1
+
+        puts "#{days.join("h ")} occured #{count} times."     
+    
+    elsif count == 1 
+
+        puts "#{days.join("h ")} occured #{count} time." 
 
     else
             
-        puts "The following hours #{hours.join("h ")}h occured #{count} times." 
+        puts "#{days.join("h ")} occured #{count} times." 
 
     end
 
